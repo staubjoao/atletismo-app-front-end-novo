@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Upload de Arquivo Excel</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Selecionar Evento</ion-label>
+    <ion-select [(ngModel)]="eventId" placeholder="Escolha um evento">
+      <ion-select-option *ngFor="let event of events" [value]="event.id">
+        {{ event.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Selecionar Arquivo Excel</ion-label>
+    <div class="file-input-wrapper">
+      <ion-button class="choose-file-btn" (click)="fileInput.click()">
+        Escolher Arquivo
+      </ion-button>
+    </div>
+    <input #fileInput type="file" (change)="onFileSelected($event)" accept=".xlsx, .xls" style="display: none;">
+  </ion-item>
+
+  <ion-button expand="block" (click)="uploadFile()" [disabled]="!selectedFile || !eventId">
+    Enviar Arquivo
+  </ion-button>
+
+  <ion-progress-bar *ngIf="isUploading" type="indeterminate"></ion-progress-bar>
+</ion-content>

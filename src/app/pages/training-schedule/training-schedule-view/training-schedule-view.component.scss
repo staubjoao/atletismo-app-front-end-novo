@@ -1,0 +1,18 @@
+.training-description {
+  h2 {
+    font-size: 1.5rem; // Increase heading size
+    font-weight: bold;
+    //color: #0454ec; // Add a color to the heading for emphasis
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1.1rem; // Increase paragraph size
+    line-height: 1.5; // Improve readability with increased line height
+    font-weight: 400; // Ensure the text is clear
+    color: #333333; // Use a slightly darker color for contrast
+    padding: 0.5rem; // Add padding around the text
+    background-color: #f1f5ff; // Light background to highlight the area
+    border-radius: 8px; // Rounded corners for aesthetics
+  }
+}

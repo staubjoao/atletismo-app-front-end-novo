@@ -1,0 +1,7 @@
+{
+  "name": "atletismo-projeto",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

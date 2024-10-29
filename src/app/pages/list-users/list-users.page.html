@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Membros do clube {{ clubName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let user of users">
+      <ion-label>
+        <h2>{{ user.nome }}</h2>
+        <p>{{ user.email }}</p>
+        <p>Função: {{ user.funcao }}</p>
+      </ion-label>
+      <ion-button
+        slot="end"
+        color="danger"
+        (click)="removeUserFromClub(user)"
+        *ngIf="isTREINADOR"
+      >
+        Remove
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreUsers($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more users..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

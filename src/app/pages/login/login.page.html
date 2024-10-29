@@ -1,0 +1,30 @@
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <h1>Bem vindo</h1>
+    <p>Faça login para continuar</p>
+    <form (submit)="onLogin()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input
+          type="password"
+          [(ngModel)]="senha"
+          name="password"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-button expand="block" type="submit">LOGIN</ion-button>
+      <p class="signup-link">
+        Não tem uma conta? <a (click)="goToSignup()">Cadastre-se</a>
+      </p>
+    </form>
+  </div>
+</ion-content>

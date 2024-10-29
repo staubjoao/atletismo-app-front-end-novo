@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro de evento</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Fechar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Dia da Semana</ion-label>
+      <ion-select [(ngModel)]="newTrainingSchedule.dayOfWeek" name="dayOfWeek">
+        <ion-select-option value="1">Segunda-feira</ion-select-option>
+        <ion-select-option value="2">Terça-feira</ion-select-option>
+        <ion-select-option value="3">Quarta-feira</ion-select-option>
+        <ion-select-option value="4">Quinta-feira</ion-select-option>
+        <ion-select-option value="5">Sexta-feira</ion-select-option>
+        <ion-select-option value="6">Sábado</ion-select-option>
+        <ion-select-option value="7">Domingo</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Hora de Início</ion-label>
+      <ion-datetime [(ngModel)]="newTrainingSchedule.startTime" name="startTime" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descrição</ion-label>
+      <ion-input [(ngModel)]="newTrainingSchedule.description" name="description" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Modalidade</ion-label>
+      <ion-select [(ngModel)]="newTrainingSchedule.eventId" name="clubId">
+        <ion-select-option *ngFor="let event of eventList" [value]="event.id">{{ event.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" (click)="registerEvent()">Cadastrar</ion-button>
+</ion-content>

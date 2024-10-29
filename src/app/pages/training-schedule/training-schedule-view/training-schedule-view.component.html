@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalhes do Treino</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Fechar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngFor="let training of trainings">
+    <ion-card-header>
+      <ion-card-title>
+        Treino para {{ training.startTime | date : "dd/MM/yyyy" }} -
+        {{ training.eventType }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="training-description">
+        <p>{{ training.description }}</p>
+      </div>
+
+      <ng-container *ngIf="!isTREINADOR">
+        <ion-item>
+          <ion-label position="stacked">Percepção de esforço (6-20)</ion-label>
+          <ion-input
+            type="number"
+            [(ngModel)]="borgFeedback[training.id]"
+            min="6"
+            max="20"
+            placeholder="Insira um valor entre 6 e 20"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Feedback adicional</ion-label>
+          <ion-textarea
+            [(ngModel)]="additionalFeedback[training.id]"
+            placeholder="Compartilhe suas observações sobre o treino..."
+          ></ion-textarea>
+        </ion-item>
+
+        <ion-button expand="full" (click)="completeTrainingSession(training)">
+          Concluir atividade
+        </ion-button>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

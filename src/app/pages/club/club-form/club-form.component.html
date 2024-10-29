@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cadastro de grupo</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="!userInfo.clubId; else alreadyHasClub">
+    <ion-item>
+      <ion-label position="floating">Nome do grupo</ion-label>
+      <ion-input [(ngModel)]="newClub.name" name="name" type="text"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" (click)="registerClub()" [disabled]="userInfo.clubId">Cadastrar</ion-button>
+
+  <ng-template #alreadyHasClub>
+    <ion-item>
+      <ion-label>Você já está associado a um grupo.</ion-label>
+    </ion-item>
+  </ng-template>
+</ion-content>

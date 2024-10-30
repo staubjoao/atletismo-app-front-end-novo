@@ -30,11 +30,14 @@ export class ClubService {
     return this.http.post<Club>(this.apiUrl, club);
   }
 
-  getClubByCode(code: string): Observable<any> {
-    if (code === '') {
-      return new Observable();
-    }
-    const url = `${this.apiUrl}/findByCode/${code}`;
-    return this.http.get<any>(url);
+  updateClub(id: number, club: Club): Observable<any> {
+    let body = {
+      nome: club.nome
+    };
+    return this.http.put<Club>(`${this.apiUrl}/${id}`, body);
+  }
+
+  deleteClub(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 }

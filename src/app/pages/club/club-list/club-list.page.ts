@@ -1,7 +1,8 @@
 import { ClubService } from './../../../services/club.service';
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ClubFormComponent } from '../club-form/club-form.component';
+import { Club } from 'src/app/models/club-modal';
 
 @Component({
   selector: 'app-club-list',
@@ -13,7 +14,8 @@ export class ClubListPage implements OnInit {
   userId: string = '';
 
   constructor(private clubService: ClubService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -45,5 +47,46 @@ export class ClubListPage implements OnInit {
 
     return await modal.present();
   }
+
+  async editClub(club: Club) {
+    const modal = await this.modalController.create({
+      component: ClubFormComponent,
+      componentProps: {
+        club: club
+      }
+    });
+
+    modal.onDidDismiss().then(() => {
+      this.findByClubId();
+    });
+
+    return await modal.present();
+  }
+
+  async deleteClub(clubId: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: 'Você tem certeza que deseja deletar este clube?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Deletar',
+          handler: () => {
+            this.clubService.deleteClub(clubId).subscribe((response) => {
+              console.log(response);
+              this.findByClubId();
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Club } from 'src/app/models/club-modal';
 import { ClubService } from 'src/app/services/club.service';
@@ -14,6 +14,11 @@ export class ClubFormComponent implements OnInit {
   newClub: Club = { nome: '' };
   userInfo: any = { clubId: null };
 
+  @Input() club: Club | null = null;
+
+
+  clubToEdit: Club | null = null;
+
   constructor(
     private modalController: ModalController,
     private clubService: ClubService,
@@ -22,7 +27,13 @@ export class ClubFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Carregar informações do usuário (se necessário)
     // this.loadUserInfo();
+
+    // Se o clube foi passado como propriedade, inicialize
+    if (this.club) {
+      this.setClubToEdit(this.club);
+    }
   }
 
   dismiss() {
@@ -47,17 +58,33 @@ export class ClubFormComponent implements OnInit {
   }
 
   registerClub() {
-    this.clubService.createClub(this.newClub).subscribe(
-      (response) => {
-        console.log('Club registered!', response);
-        const clubId = response.id;
-        this.dismiss();
-        this.router.navigate(['/club-list']);
-      },
-      (error) => {
-        console.error('Error registering club:', error);
-      }
-    );
+    if (this.clubToEdit) {
+      this.clubService.updateClub(this.clubToEdit.id!, this.newClub).subscribe(
+        (response) => {
+          console.log('Club updated!', response);
+          this.dismiss();
+          this.router.navigate(['/club-list']);
+        },
+        (error) => {
+          console.error('Error updating club:', error);
+        }
+      );
+    } else {
+      this.clubService.createClub(this.newClub).subscribe(
+        (response) => {
+          console.log('Club registered!', response);
+          this.dismiss();
+          this.router.navigate(['/club-list']);
+        },
+        (error) => {
+          console.error('Error registering club:', error);
+        }
+      );
+    }
   }
 
+  setClubToEdit(club: Club) {
+    this.clubToEdit = club;
+    this.newClub = { ...club };
+  }
 }

@@ -9,19 +9,19 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Home', url: '/home', icon: 'home', roles: ['TREINADOR', 'ATHLETE'] },
+    { title: 'Home', url: '/home', icon: 'home', roles: ['TREINADOR', 'ATLETA'] },
     { title: 'Grupo', url: '/club-list', icon: 'people', roles: ['TREINADOR'] },
     {
       title: 'Modalidade',
       url: '/event-list',
       icon: 'flame',
-      roles: ['TREINADOR', 'ATHLETE'],
+      roles: ['TREINADOR', 'ATLETA'],
     },
     {
       title: 'Cronograma de treino',
       url: '/training-schedule',
       icon: 'calendar',
-      roles: ['TREINADOR', 'ATHLETE'],
+      roles: ['TREINADOR', 'ATLETA'],
     },
     { title: 'Atletas', url: '/list-users', icon: 'person', roles: ['TREINADOR'] },
     {title: 'Criar treino', url: '/excel-upload', icon: 'add', roles: ['TREINADOR'] },

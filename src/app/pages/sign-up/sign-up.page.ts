@@ -24,45 +24,37 @@ export class SignUpPage {
     private authService: AuthService,
     private clubService: ClubService,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   onSignup() {
     if (this.clubCode.trim()) {
-      console.log("Teste");
       this.signupWithClubCode();
     } else {
-      console.log("Teste2");
-      this.createUser(null);
+      this.createUser();
     }
   }
 
   private signupWithClubCode() {
-    this.clubService
-      .getClubByCode(this.clubCode)
-      .pipe(
-        switchMap((club) => {
-          if (!club || !club.id) {
-            throw new Error('Invalid club code');
-          }
-          return of(club.id);
-        }),
-        catchError((error) => {
-          console.error('Error fetching club:', error);
-          this.presentAlert(
-            'Erro',
-            'Código de clube inválido. Verifique o código e tente novamente.'
-          );
-          return of(null);
-        })
-      )
-      .subscribe((clubId) => {
-        if (clubId) {
-          this.createUser(clubId);
-        }
-      });
+    const newUser: User = {
+      nome: this.name,
+      email: this.email,
+      senha: this.senha,
+      funcao: this.funcao.toUpperCase(),
+    };
+
+    this.authService.createUserWithClub(newUser, this.clubCode).subscribe(
+      (response) => {
+        this.presentAlert('Sucesso', 'Sua conta foi criada com sucesso');
+        this.navCtrl.navigateForward('/login');
+      },
+      (error) => {
+        console.error('Signup failed', error);
+        this.presentAlert('Erro', 'Erro ao criar conta. Tente novamente.');
+      }
+    );
   }
 
-  private createUser(clubId: any) {
+  private createUser() {
     console.log('Role:', this.funcao);
     const newUser: User = {
       nome: this.name,

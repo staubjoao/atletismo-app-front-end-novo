@@ -43,16 +43,19 @@ export class AppComponent {
   }
 
   getFilteredPages() {
+    console.log("teste");
     return this.appPages.filter((page) => page.roles.includes(this.userRole));
   }
 
   checkRoute(url: string) {
+    console.log("teste");
     const noMenuRoutes = ['/login', '/sign-up'];
     this.showMenu = !noMenuRoutes.includes(url);
     console.log(this.showMenu);
   }
 
   logout() {
+    console.log("teste");
     this.authService.logout();
     this.router.navigate(['/login']);
   }

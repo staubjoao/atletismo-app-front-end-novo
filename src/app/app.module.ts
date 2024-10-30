@@ -6,13 +6,14 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClubFormComponent } from './pages/club/club-form/club-form.component';
 import { FormsModule } from '@angular/forms';
 import { EventFormComponent } from './pages/event/event-form/event-form.component';
 import { TrainingScheduleFormComponent } from './pages/training-schedule/training-schedule-form/training-schedule-form.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { TrainingScheduleViewComponent } from './pages/training-schedule/training-schedule-view/training-schedule-view.component';
+import { TokenInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,11 +29,19 @@ import { TrainingScheduleViewComponent } from './pages/training-schedule/trainin
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    FullCalendarModule],
-  providers: [{
-    provide: RouteReuseStrategy,
-    useClass: IonicRouteStrategy
-  }],
+    FullCalendarModule
+  ],
+  providers: [
+    {
+      provide: RouteReuseStrategy,
+      useClass: IonicRouteStrategy
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+  }
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

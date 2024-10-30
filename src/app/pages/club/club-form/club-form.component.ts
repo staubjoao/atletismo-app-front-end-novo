@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./club-form.component.scss'],
 })
 export class ClubFormComponent implements OnInit {
-  newClub: Club = { name: '' };
+  newClub: Club = { nome: '' };
   userInfo: any = { clubId: null };
 
   constructor(
@@ -22,8 +22,7 @@ export class ClubFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadUserInfo();
-
+    // this.loadUserInfo();
   }
 
   dismiss() {
@@ -48,17 +47,12 @@ export class ClubFormComponent implements OnInit {
   }
 
   registerClub() {
-    if (this.userInfo.clubId) {
-      console.log('User already has a club');
-      return;
-    }
-
-    console.log('Registering new club:', this.newClub);
     this.clubService.createClub(this.newClub).subscribe(
       (response) => {
         console.log('Club registered!', response);
         const clubId = response.id;
-        this.updateUserClub(clubId);
+        this.dismiss();
+        this.router.navigate(['/club-list']);
       },
       (error) => {
         console.error('Error registering club:', error);
@@ -66,27 +60,4 @@ export class ClubFormComponent implements OnInit {
     );
   }
 
-  updateUserClub(clubId: string) {
-    // const updatedUserData = {
-    //   name: this.userInfo.name,
-    //   email: this.userInfo.email,
-    //   password: this.userInfo.password,
-    //   clubId: Number(clubId),
-    //   role: this.userInfo.role,
-    // };
-
-    // this.authService.updateUser(updatedUserData).subscribe(
-    //   (updatedUser) => {
-    //     this.userInfo.club = this.newClub.name;
-    //     this.userInfo.clubId = Number(clubId);
-    //     localStorage.setItem('clubId', clubId);
-    //     console.log('User updated successfully', updatedUser);
-    //     this.dismiss();
-    //     this.router.navigate(['/club-list']);
-    //   },
-    //   (error) => {
-    //     console.error('Error updating user', error);
-    //   }
-    // );
-  }
 }

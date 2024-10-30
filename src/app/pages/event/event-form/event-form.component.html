@@ -20,7 +20,7 @@
     <ion-item>
       <ion-label position="floating">Clube</ion-label>
       <ion-select [(ngModel)]="newEvent.clubId" name="clubId">
-        <ion-select-option *ngFor="let club of clubList" [value]="club.id">{{ club.name }}</ion-select-option>
+        <ion-select-option *ngFor="let club of clubList" [value]="club.id">{{ club.nome }}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>

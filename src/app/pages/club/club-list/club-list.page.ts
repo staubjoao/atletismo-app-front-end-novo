@@ -23,17 +23,15 @@ export class ClubListPage implements OnInit {
   }
 
   findByClubId() {
-    if(this.userId !== '') {    
-      this.clubService.getByUserId(this.userId).subscribe(
-        (data) => {
-          this.clubs = data;
-          console.log(this.clubs);
-        },
-        (error) => {
-          console.error('Erro ao obter clubes:', error);
-        }
-      );
-    }
+    this.clubService.getByUserId(this.userId).subscribe(
+      (data) => {
+        this.clubs = data;
+        console.log(this.clubs);
+      },
+      (error) => {
+        console.error('Erro ao obter clubes:', error);
+      }
+    );
   }
 
   async openClubRegistrationModal() {

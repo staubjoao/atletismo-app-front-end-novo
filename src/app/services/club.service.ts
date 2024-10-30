@@ -8,7 +8,7 @@ import { Club } from '../models/club-modal';
   providedIn: 'root',
 })
 export class ClubService {
-  private apiUrl = `${environment.apiUrl}/club`;
+  private apiUrl = `${environment.apiUrl}/api/clube`;
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +17,7 @@ export class ClubService {
   }
 
   getByUserId(userId: string): Observable<any> {
-    const url = `${this.apiUrl}/getByUserId/${userId}`;
+    const url = `${this.apiUrl}`;
     return this.http.get<any>(url);
   }
 

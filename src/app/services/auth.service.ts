@@ -26,6 +26,10 @@ export class AuthService {
     return this.http.post<User>(this.apiUrl, user);
   }
 
+  createUserWithClub(user: User, clubCode: string): Observable<any> {
+    return this.http.post<User>(`${this.apiUrl}/clube/${clubCode}`, user);
+  }
+
   updateUser(user: User): Observable<any> {
     const url = `${this.apiUrl}/${user.email}`;
     return this.http.patch<User>(url, user);

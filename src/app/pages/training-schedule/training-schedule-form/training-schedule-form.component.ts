@@ -1,7 +1,7 @@
 import { ClubService } from './../../../services/club.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Event } from 'src/app/models/event-modal';
+import { Evento } from 'src/app/models/event-modal';
 import { Club } from 'src/app/models/club-modal';
 import { TrainingScheduleService } from 'src/app/services/training-schedule.service';
 import { TrainingSchedule } from 'src/app/models/training-schedule-modal';
@@ -21,7 +21,7 @@ export class TrainingScheduleFormComponent  implements OnInit {
     eventId: 0
   };
 
-  eventList: Event[] = [];
+  eventList: Evento[] = [];
 
   constructor(private modalController: ModalController,
     private trainingScheduleService: TrainingScheduleService,

@@ -16,23 +16,25 @@
 
   <ion-list>
     <ion-item *ngFor="let event of events">
-      {{ event.name }}
+      {{ event.nome }} - {{ event.clube.nome }}
       <ng-container *ngIf="!isTREINADOR">
-        <ion-button
-          slot="end"
-          (click)="linkToEvent(event)"
-          *ngIf="!linkedEventId"
-        >
+        <ion-button slot="end" (click)="linkToEvent(event)" *ngIf="!linkedEventId">
           Vincular
         </ion-button>
-        <ion-button
-          slot="end"
-          (click)="unlinkFromEvent(event)"
-          *ngIf="isLinkedToEvent(event.id)"
-          color="danger"
-        >
+        <ion-button slot="end" (click)="unlinkFromEvent(event)" *ngIf="isLinkedToEvent(event.id)" color="danger">
           Desvincular
         </ion-button>
+      </ng-container>
+
+      <ng-container *ngIf="isTREINADOR">
+        <ion-buttons slot="end">
+          <ion-button (click)="editEvent(event)">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <!-- <ion-button color="danger" (click)="deleteEvent(event.id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button> -->
+        </ion-buttons>
       </ng-container>
     </ion-item>
   </ion-list>

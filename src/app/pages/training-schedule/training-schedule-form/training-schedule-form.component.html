@@ -32,7 +32,7 @@
     <ion-item>
       <ion-label position="floating">Modalidade</ion-label>
       <ion-select [(ngModel)]="newTrainingSchedule.eventId" name="clubId">
-        <ion-select-option *ngFor="let event of eventList" [value]="event.id">{{ event.name }}</ion-select-option>
+        <ion-select-option *ngFor="let event of eventList" [value]="event.id">{{ event.nome }}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>

@@ -11,18 +11,22 @@
   <ion-list>
     <ion-item>
       <ion-label position="floating">Nome do evento</ion-label>
-      <ion-input [(ngModel)]="newEvent.name" name="name" type="text"></ion-input>
+      <ion-input [(ngModel)]="newEvent.nome" name="name" type="text"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="!newEvent.id">
       <ion-label position="floating">Tipo</ion-label>
-      <ion-input [(ngModel)]="newEvent.type" name="name" type="text"></ion-input>
+      <ion-select [(ngModel)]="newEvent.tipo" name="eventType">
+        <ion-select-option *ngFor="let tipo of tipoEventoList" [value]="tipo.value">
+          {{ tipo.label }}
+        </ion-select-option>
+      </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="!newEvent.id">
       <ion-label position="floating">Clube</ion-label>
-      <ion-select [(ngModel)]="newEvent.clubId" name="clubId">
-        <ion-select-option *ngFor="let club of clubList" [value]="club.id">{{ club.nome }}</ion-select-option>
+      <ion-select [(ngModel)]="newEvent.clube" name="clubId">
+        <ion-select-option *ngFor="let club of clubList" [value]="club">{{ club.nome }}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
-  <ion-button expand="full" (click)="registerEvent()">Cadastrar</ion-button>
+  <ion-button expand="full" (click)="registerEvent()">{{newEvent.id ? "Atualizar" : "Cadastrar"}}</ion-button>
 </ion-content>

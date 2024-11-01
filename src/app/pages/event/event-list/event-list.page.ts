@@ -4,6 +4,7 @@ import { AthleteEventService } from '../../../services/athlete-event.service';
 import { EventService } from '../../../services/event.service';
 import { AuthService } from '../../../services/auth.service';
 import { EventFormComponent } from '../event-form/event-form.component';
+import { Evento } from 'src/app/models/event-modal';
 
 @Component({
   selector: 'app-event-list',
@@ -32,21 +33,59 @@ export class EventListPage implements OnInit {
   }
 
   async checkUserRole() {
-    const userInfo = await this.authService.getUserInfo().toPromise();
-    this.isTREINADOR = userInfo ? userInfo.funcao === 'TREINADOR' : false;
-    this.userId = userInfo?.id ?? 0;
-    this.loadLinkedEvent();
+    const userInfo = await this.authService.getUserType();
+    this.isTREINADOR = userInfo === 'TREINADOR';
   }
 
   loadEvents() {
     this.eventService.getAllEvents().subscribe(
       (events) => {
         this.events = events;
+        console.log(this.events);
       },
       (error) => {
         console.error('Erro ao carregar eventos', error);
       }
     );
+  }
+
+
+  async editEvent(event: Evento) {
+    const modal = await this.modalController.create({
+      component: EventFormComponent,
+      componentProps: {
+        event: event
+      }
+    });
+
+    modal.onDidDismiss().then(() => {
+      this.loadEvents();
+    });
+
+    return await modal.present();
+  }
+
+  async deleteEvent(eventId: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: 'Você tem certeza que deseja deletar esta modalidade?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Deletar',
+          handler: () => {
+            this.eventService.deleteEvent(eventId).subscribe((response) => {
+              console.log(response);
+              this.loadEvents();
+            });
+          }
+        }
+      ]
+    });
   }
 
   async openEventRegistrationModal() {

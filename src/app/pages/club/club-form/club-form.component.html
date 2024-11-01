@@ -14,7 +14,7 @@
       <ion-input [(ngModel)]="newClub.nome" name="name" type="text"></ion-input>
     </ion-item>
   </ion-list>
-  <ion-button expand="full" (click)="registerClub()" [disabled]="userInfo.clubId">Cadastrar</ion-button>
+  <ion-button expand="full" (click)="registerClub()" [disabled]="userInfo.clubId">{{newClub.id ? "Atualizar" : "Cadastrar"}}</ion-button>
 
   <ng-template #alreadyHasClub>
     <ion-item>

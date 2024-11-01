@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Evento } from '../models/event-modal';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = `${environment.apiUrl}/event`;
+  private apiUrl = `${environment.apiUrl}/api/evento`;
 
   constructor(private http: HttpClient) {}
 
@@ -25,8 +26,29 @@ export class EventService {
     return this.http.get<any>(`${this.apiUrl}/findByClubId/${clubId}`);
   }
 
-
-  createEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.apiUrl, event);
+  deleteEvent(eventId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${eventId}`);
   }
+
+
+  createEvent(event: Evento): Observable<Evento> {
+    let body = {
+      nome: event.nome,
+      tipo: event.tipo,
+      idClube: event.clube.id
+    }
+    console.log(body);
+    return this.http.post<Evento>(this.apiUrl, body);
+  }
+
+  updateEvent(event: Evento): Observable<Evento> {
+    let body = {
+      nome: event.nome,
+      tipo: event.tipo,
+      idClube: event.clube.id
+    }
+    console.log(event);
+    return this.http.put<Evento>(`${this.apiUrl}/${event.id}`, body);
+  }
+
 }

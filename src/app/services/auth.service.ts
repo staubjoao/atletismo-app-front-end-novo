@@ -47,9 +47,15 @@ export class AuthService {
     console.log('aa');
     return this.http.get<any>(url);
   }
+
   getUserInfo(): Observable<User> {
     const email = localStorage.getItem('email') as any;
     return this.getUserByEmail(email);
+  }
+
+  getUserType(): string {
+    const role = localStorage.getItem('role') as any;
+    return role;
   }
 
   logout() {

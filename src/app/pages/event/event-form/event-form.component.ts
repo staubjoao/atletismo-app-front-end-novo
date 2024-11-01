@@ -1,9 +1,17 @@
 import { ClubService } from './../../../services/club.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { EventService } from 'src/app/services/event.service';
-import { Event } from 'src/app/models/event-modal';
 import { Club } from 'src/app/models/club-modal';
+import { Evento } from 'src/app/models/event-modal';
+
+export enum TipoEvento {
+  CORRIDA_CURTA = 'Corrida curta',
+  MEIO_FUNDO = 'Meio fundo',
+  FUNDO = 'Fundo',
+  SALTOS = 'Saltos',
+  LANCAMENTOS = 'Lançamentos'
+}
 
 @Component({
   selector: 'app-event-form',
@@ -12,12 +20,19 @@ import { Club } from 'src/app/models/club-modal';
 })
 export class EventFormComponent  implements OnInit {
 
-  newEvent: any = {
-    name: '',
-    type: '',
-    clubId: 0
+  newEvent: Evento = {
+    nome: '',
+    tipo: '',
+    clube: {
+      nome: ''
+    }
   };
 
+  @Input() event: Evento | null = null;
+
+  eventToEdit: Evento | null = null;
+
+  tipoEventoList = Object.entries(TipoEvento).map(([value, label]) => ({ value, label }));
   clubList: Club[] = [];
 
   constructor(private modalController: ModalController,
@@ -29,28 +44,51 @@ export class EventFormComponent  implements OnInit {
     this.clubService.getAllClubs().subscribe(
       (response: any) => {
         this.clubList = response;
+        console.log(this.clubList);
       },
       (error) => {
         console.log(error);
       }
-    )
+    );
+
+    if (this.event) {
+      this.setEventToEdit(this.event);
+    }
   }
 
   dismiss() {
     this.modalController.dismiss();
   }
 
-  registerEvent() {
+  setEventToEdit(event: Evento) {
+    this.eventToEdit = event;
+    this.newEvent = { ...event };
     console.log(this.newEvent);
-    this.eventService.createEvent(this.newEvent).subscribe(
-      (response) => {
-        console.log('Grupo registrado!', response);
-        this.dismiss();
-      },
-      (error) => {
-        console.error('Erro ao registrar clube:', error);
-      }
-    );
+  }
+
+  registerEvent() {
+    if (this.newEvent.id) {
+      this.eventService.updateEvent(this.newEvent).subscribe(
+        (response) => {
+          console.log('Modalidade registrada!', response);
+          this.dismiss();
+        },
+        (error) => {
+          console.error('Erro ao registrar a modalidade:', error);
+        }
+      );
+    } else {
+      this.eventService.createEvent(this.newEvent).subscribe(
+        (response) => {
+          console.log('Modalidade registrada!', response);
+          this.dismiss();
+        },
+        (error) => {
+          console.error('Erro ao registrar a modalidade:', error);
+        }
+      );
+    }
+
   }
 
 }

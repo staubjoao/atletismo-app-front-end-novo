@@ -1,6 +1,8 @@
-export interface Event {
+import { Club } from "./club-modal";
+
+export interface Evento {
   id?: number;
-  name: string;
-  type: string;
-  clubId: number;
+  nome: string;
+  tipo: string;
+  clube: Club;
 }

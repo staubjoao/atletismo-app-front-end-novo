@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
-import { ClubService } from '../../services/club.service';
+import { AlertController, InfiniteScrollCustomEvent, ModalController } from '@ionic/angular';
 import { User } from 'src/app/models/user-model';
+import { ClubService } from 'src/app/services/club.service';
+import { ViewUsersComponent } from '../view-users/view-users.component';
 
 @Component({
   selector: 'app-list-users',
@@ -18,27 +19,46 @@ export class ListUsersPage implements OnInit {
   pageSize: number = 20;
   searchEmail: string = '';
   searchedUser: User | null = null;
+  clubs: any[] = [];
 
   constructor(
     private authService: AuthService,
     private clubService: ClubService,
+    private modalController: ModalController,
     private alertController: AlertController
   ) {}
 
   ngOnInit() {
-    this.loadInitialData();
+    this.findByUserId();
+    this.checkUserRole();
   }
 
-  async loadInitialData() {
-    const userInfo = await this.authService.getUserInfo().toPromise();
-    if (!userInfo) {
-      console.error('Informações do usuário não encontradas');
-      return;
-    }
-    this.isTREINADOR = userInfo.funcao === 'TREINADOR';
-    // this.clubId = userInfo.clubId?.toString() ?? '';
-    this.loadUsers();
-    this.loadClubName();
+  async checkUserRole() {
+    const userInfo = await this.authService.getUserType();
+    this.isTREINADOR = userInfo === 'TREINADOR';
+  }
+
+  findByUserId() {
+    this.clubService.getByUserId().subscribe(
+      (data) => {
+        this.clubs = data;
+        console.log(this.clubs);
+      },
+      (error) => {
+        console.error('Erro ao obter clubes:', error);
+      }
+    );
+  }
+
+  async viewUsers(clube: any) {
+    const modal = await this.modalController.create({
+      component: ViewUsersComponent,
+      componentProps: {
+        clubCod: clube.codigo
+      }
+    });
+
+    return await modal.present();
   }
 
   loadClubName() {
@@ -53,33 +73,6 @@ export class ListUsersPage implements OnInit {
         console.error('Erro ao carregar nome do clube', error);
       }
     );
-  }
-
-  loadUsers(event?: InfiniteScrollCustomEvent) {
-    this.authService
-      .getUsersByClubId(this.clubId, this.currentPage, this.pageSize)
-      .subscribe(
-        (newUsers: User[]) => {
-          this.users = [...this.users, ...newUsers];
-          if (event) {
-            event.target.complete();
-            if (newUsers.length < this.pageSize) {
-              event.target.disabled = true;
-            }
-          }
-        },
-        (error) => {
-          console.error('Erro ao carregar usuários', error);
-          if (event) {
-            event.target.complete();
-          }
-        }
-      );
-  }
-
-  loadMoreUsers(event: InfiniteScrollCustomEvent) {
-    this.currentPage++;
-    this.loadUsers(event);
   }
 
   async removeUserFromClub(user: User) {

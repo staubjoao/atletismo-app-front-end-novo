@@ -55,7 +55,7 @@ const routes: Routes = [
   {
     path: 'list-users',
     loadChildren: () =>
-      import('./pages/list-users/list-users.module').then(
+      import('./pages/users/list-users/list-users.module').then(
         (m) => m.ListUsersPageModule
       ),
     canActivate: [AuthGuard],

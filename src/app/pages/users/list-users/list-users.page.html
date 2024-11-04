@@ -9,28 +9,19 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let user of users">
+    <ion-item *ngFor="let club of clubs">
       <ion-label>
-        <h2>{{ user.nome }}</h2>
-        <p>{{ user.email }}</p>
-        <p>Função: {{ user.funcao }}</p>
+        <h2>{{ club.nome }}</h2>
+        <p>Quantidade: {{ club.quantidadeMembros }}</p>
       </ion-label>
       <ion-button
         slot="end"
-        color="danger"
-        (click)="removeUserFromClub(user)"
+        color="primary"
+        (click)="viewUsers(club)"
         *ngIf="isTREINADOR"
       >
-        Remove
+        Visualizar
       </ion-button>
     </ion-item>
   </ion-list>
-
-  <ion-infinite-scroll (ionInfinite)="loadMoreUsers($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more users..."
-    >
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>

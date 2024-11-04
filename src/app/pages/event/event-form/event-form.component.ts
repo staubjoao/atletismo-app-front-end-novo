@@ -24,6 +24,7 @@ export class EventFormComponent  implements OnInit {
     nome: '',
     tipo: '',
     clube: {
+      id: undefined,
       nome: ''
     }
   };
@@ -78,6 +79,7 @@ export class EventFormComponent  implements OnInit {
         }
       );
     } else {
+      console.log("this.newEvent => ", this.newEvent);
       this.eventService.createEvent(this.newEvent).subscribe(
         (response) => {
           console.log('Modalidade registrada!', response);

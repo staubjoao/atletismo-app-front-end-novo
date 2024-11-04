@@ -110,6 +110,10 @@ export class EventListPage implements OnInit {
       }
     });
 
+    modal.onDidDismiss().then(() => {
+      this.loadEvents();
+    });
+
     return await modal.present();
   }
 

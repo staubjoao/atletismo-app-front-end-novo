@@ -21,11 +21,11 @@ export class ClubListPage implements OnInit {
   ngOnInit() {
     this.userId = localStorage.getItem('userId') || '';
 
-    this.findByClubId();
+    this.findByUserId();
   }
 
-  findByClubId() {
-    this.clubService.getByUserId(this.userId).subscribe(
+  findByUserId() {
+    this.clubService.getByUserId().subscribe(
       (data) => {
         this.clubs = data;
         console.log(this.clubs);
@@ -42,7 +42,7 @@ export class ClubListPage implements OnInit {
     });
 
     modal.onDidDismiss().then(() => {
-      this.findByClubId();
+      this.findByUserId();
     });
 
     return await modal.present();
@@ -57,7 +57,7 @@ export class ClubListPage implements OnInit {
     });
 
     modal.onDidDismiss().then(() => {
-      this.findByClubId();
+      this.findByUserId();
     });
 
     return await modal.present();
@@ -78,7 +78,7 @@ export class ClubListPage implements OnInit {
           handler: () => {
             this.clubService.deleteClub(clubId).subscribe((response) => {
               console.log(response);
-              this.findByClubId();
+              this.findByUserId();
             });
           }
         }

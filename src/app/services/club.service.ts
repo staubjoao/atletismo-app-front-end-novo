@@ -16,8 +16,13 @@ export class ClubService {
     return this.http.get<any>(this.apiUrl);
   }
 
-  getByUserId(userId: string): Observable<any> {
-    const url = `${this.apiUrl}`;
+  getByUserId(): Observable<any> {
+    const url = `${this.apiUrl}/membros`;
+    return this.http.get<any>(url);
+  }
+
+  getByUserIdQtdUsers(): Observable<any> {
+    const url = `${this.apiUrl}/`;
     return this.http.get<any>(url);
   }
 

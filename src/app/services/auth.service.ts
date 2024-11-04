@@ -8,7 +8,7 @@ import { User } from '../models/user-model';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/usuario`;
+  private apiUrl = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient) {}
 
@@ -39,6 +39,7 @@ export class AuthService {
     const url = `${this.apiUrl}/login`;
     return this.http.post<User>(url, user);
   }
+
   getUserByEmail(email: string): Observable<any> {
     if (email === '') {
       return new Observable();

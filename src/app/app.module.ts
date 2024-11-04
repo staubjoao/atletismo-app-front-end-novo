@@ -14,12 +14,14 @@ import { TrainingScheduleFormComponent } from './pages/training-schedule/trainin
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { TrainingScheduleViewComponent } from './pages/training-schedule/training-schedule-view/training-schedule-view.component';
 import { TokenInterceptor } from './auth.interceptor';
+import { ViewUsersComponent } from './pages/users/view-users/view-users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClubFormComponent,
     EventFormComponent,
+    ViewUsersComponent,
     TrainingScheduleFormComponent,
     TrainingScheduleViewComponent
   ],

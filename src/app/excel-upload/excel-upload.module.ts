@@ -13,7 +13,8 @@ import { ExcelUploadPage } from './excel-upload.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ExcelUploadPageRoutingModule
+    ExcelUploadPageRoutingModule,
+    FormsModule
   ],
   declarations: [ExcelUploadPage]
 })

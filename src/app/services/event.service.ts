@@ -16,6 +16,10 @@ export class EventService {
     return this.http.get<any>(this.apiUrl);
   }
 
+  getAllEventsByClube(clubeId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/clube/${clubeId}`);
+  }
+
   findByTrainingScheduleId(trainingScheduleId: number): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}/findByTrainingScheduleId/${trainingScheduleId}`

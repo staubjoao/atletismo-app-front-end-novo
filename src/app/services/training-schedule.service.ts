@@ -8,9 +8,13 @@ import { TrainingSchedule } from '../models/training-schedule-modal';
   providedIn: 'root',
 })
 export class TrainingScheduleService {
-  private apiUrl = `${environment.apiUrl}/training-schedule`;
+  private apiUrl = `${environment.apiUrl}/api/treino`;
 
   constructor(private http: HttpClient) {}
+
+  postTreino(treino: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, treino);
+  }
 
   getAllTrainingSchedule(): Observable<TrainingSchedule[]> {
     return this.http.get<TrainingSchedule[]>(this.apiUrl);

@@ -179,15 +179,32 @@ export class ExcelUploadPage implements OnInit {
     toast.present();
   }
 
-  sendTrain() {
-    this.trainingScheduleService.postTreino(this.treino).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+  async sendTrain() {
+    try {
+      const response = await this.trainingScheduleService.postTreino(this.treino).toPromise();
+
+      await this.showToast('Treino enviado com sucesso!', 'success');
+
+      this.treino = [];
+      this.clubId = 0;
+      this.eventId = 0;
+      this.selectedFile = null;
+
+    } catch (error) {
+      console.error(error);
+      await this.showToast('Erro ao enviar treino. Tente novamente.', 'danger');
+    }
   }
+
+  async showToast(message: string, color: 'success' | 'danger') {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'top'
+    });
+    toast.present();
+  }
+
 
 }

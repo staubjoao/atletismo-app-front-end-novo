@@ -25,7 +25,7 @@ export class ClubListPage implements OnInit {
   }
 
   findByUserId() {
-    this.clubService.getByUserId().subscribe(
+    this.clubService.getAllClubs().subscribe(
       (data) => {
         this.clubs = data;
         console.log(this.clubs);

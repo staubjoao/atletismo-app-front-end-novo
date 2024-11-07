@@ -10,7 +10,7 @@ import { Evento } from '../models/event-modal';
 export class EventService {
   private apiUrl = `${environment.apiUrl}/api/evento`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllEvents(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
@@ -18,6 +18,18 @@ export class EventService {
 
   getAllEventsByClube(clubeId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/clube/${clubeId}`);
+  }
+
+  getAllEventosAtleta(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/atleta`);
+  }
+
+  vincularEvento(eventoId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/vincular/${eventoId}`, null);
+  }
+
+  desvincularEvento(eventoId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/desvincular/${eventoId}`, null);
   }
 
   findByTrainingScheduleId(trainingScheduleId: number): Observable<any> {

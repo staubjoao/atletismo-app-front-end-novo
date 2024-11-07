@@ -7,6 +7,7 @@ import { TrainingScheduleFormComponent } from '../training-schedule-form/trainin
 import { EventService } from '../../../services/event.service';
 import { Club } from 'src/app/models/club-modal';
 import { ClubService } from 'src/app/services/club.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-training-schedule-list',
@@ -21,6 +22,7 @@ export class TrainingScheduleListPage implements OnInit {
   userRole: string = '';
   userClubId: number = 0;
   userId: number = 0;
+  isTREINADOR: boolean = false
 
   eventId: number = 0;
   clubId: number = 0;
@@ -32,16 +34,32 @@ export class TrainingScheduleListPage implements OnInit {
     private trainingScheduleService: TrainingScheduleService,
     private eventService: EventService,
     private clubService: ClubService,
+    private authService: AuthService,
     private modalController: ModalController
   ) { }
 
   ngOnInit() {
+    this.checkUserRole();
+    if(!this.isTREINADOR) {
+      this.consultaEventosClubeAtleta();
+    }
     this.carregarClubes();
+  }
+
+  checkUserRole() {
+    const userInfo = this.authService.getUserType();
+    this.isTREINADOR = userInfo === 'TREINADOR';
   }
 
   carregarClubes() {
     this.clubService.getAllClubs().subscribe((response) => {
       this.clubs = response;
+    })
+  }
+
+  consultaEventosClubeAtleta() {
+    this.eventService.getAllEventosAtleta().subscribe((response) => {
+      this.events = response;
     })
   }
 

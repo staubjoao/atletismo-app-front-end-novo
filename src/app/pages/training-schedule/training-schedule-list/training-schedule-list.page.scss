@@ -53,8 +53,36 @@
 ion-datetime {
   margin-bottom: 16px;
 }
+
 .highlighted {
   background-color: #ffeb3b;
   border-radius: 50%;
   padding: 0.5rem;
+}
+
+.treino-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 15px;
+  color: #3880ff;
+}
+
+.treino-list {
+  margin-top: 5px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-left: 0;
+}
+
+.treino-name {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #222428;
+}
+
+.treino-info {
+  font-size: 0.9em;
+  color: #666;
+  margin: 4px 0;
 }

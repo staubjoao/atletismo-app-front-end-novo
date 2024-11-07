@@ -1,26 +1,48 @@
-<ion-app>
-  <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Modalidades</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Cronograma de treinos</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
-    <ion-grid class="center-content">
-      <ion-row>
-        <ion-col class="ion-text-center">
-          <ion-datetime
-            presentation="date"
-            [(ngModel)]="datetime"
-          ></ion-datetime>
-          <ion-button expand="full" (click)="showTraining()"
-            >Visualizar Treino</ion-button
-          >
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label position="stacked">Selecionar Clube</ion-label>
+    <ion-select [(ngModel)]="clubId" placeholder="Escolha um clube" (ionChange)="consultaEventosClube()">
+      <ion-select-option *ngFor="let club of clubs" [value]="club.id">
+        {{ club.nome }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="clubId">
+    <ion-label position="stacked">Selecionar Evento</ion-label>
+    <ion-select [(ngModel)]="eventId" placeholder="Escolha um evento" (ionChange)="findByEvento()">
+      <ion-select-option *ngFor="let event of events" [value]="event.id">
+        {{ event.nome }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <br>
+  <ion-content *ngIf="treinos.length">
+    <ion-label position="stacked" class="treino-title">Treinos</ion-label>
+    <ion-list lines="full" class="treino-list">
+      <ion-item *ngFor="let treino of treinos">
+        <ion-label>
+          <h2 class="treino-name">{{ treino.nome }}</h2>
+          <p class="treino-info">
+            Data: {{ treino.dataTreinamento | date: 'dd/MM/yyyy' }}
+            ({{ obterDiaSemana(treino.diaSemana) }})
+          </p>
+          <p class="treino-info">Exercícios: {{ treino.exercicios.length }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
   </ion-content>
-</ion-app>
+
+</ion-content>

@@ -32,10 +32,8 @@ export class TrainingScheduleService {
     );
   }
 
-  findByUserId(userId: number): Observable<TrainingSchedule[]> {
-    return this.http.get<TrainingSchedule[]>(
-      `${this.apiUrl}/findByUserId/${userId}`
-    );
+  findByEvento(eventoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/evento/${eventoId}`);
   }
 
   createTrainingSchedule(

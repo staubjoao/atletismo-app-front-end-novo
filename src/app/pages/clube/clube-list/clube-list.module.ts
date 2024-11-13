@@ -3,18 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
-import { ClubListPageRoutingModule } from './club-list-routing.module';
-
-import { ClubListPage } from './club-list.page';
+import { ClubeListPage } from './clube-list.page';
+import { ClubeListPageRoutingModule } from './clube-list-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClubListPageRoutingModule
+    ClubeListPageRoutingModule
   ],
-  declarations: [ClubListPage]
+  declarations: [ClubeListPage]
 })
-export class ClubListPageModule {}
+export class ClubeListPageModule {}

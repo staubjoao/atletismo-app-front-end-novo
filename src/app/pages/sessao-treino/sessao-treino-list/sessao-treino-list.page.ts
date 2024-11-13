@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TrainingScheduleService } from 'src/app/services/training-schedule.service';
-import { TrainingScheduleViewComponent } from '../training-schedule-view/training-schedule-view.component';
-import { TrainingScheduleFormComponent } from '../training-schedule-form/training-schedule-form.component';
 import { EventService } from '../../../services/event.service';
 import { Club } from 'src/app/models/club-modal';
 import { ClubService } from 'src/app/services/club.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SessaoTreinoFormComponent } from '../sessao-treino-form/sessao-treino-form.component';
 
 @Component({
-  selector: 'app-training-schedule-list',
-  templateUrl: './training-schedule-list.page.html',
-  styleUrls: ['./training-schedule-list.page.scss'],
+  selector: 'app-sessao-treino-list',
+  templateUrl: './sessao-treino-list.page.html',
+  styleUrls: ['./sessao-treino-list.page.scss'],
 })
-export class TrainingScheduleListPage implements OnInit {
+export class SessaoTreinoListPage implements OnInit {
   treinos: any[] = [];
   days: number[] = [];
   monthYear: string = '';
@@ -115,7 +114,7 @@ export class TrainingScheduleListPage implements OnInit {
     console.log('Treino recebido:', treino);
 
     const modal = await this.modalController.create({
-      component: TrainingScheduleFormComponent,
+      component: SessaoTreinoFormComponent,
       componentProps: {
         treino: treino
       }

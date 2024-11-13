@@ -7,24 +7,22 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ClubFormComponent } from './pages/club/club-form/club-form.component';
 import { FormsModule } from '@angular/forms';
-import { EventFormComponent } from './pages/event/event-form/event-form.component';
-import { TrainingScheduleFormComponent } from './pages/training-schedule/training-schedule-form/training-schedule-form.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { TrainingScheduleViewComponent } from './pages/training-schedule/training-schedule-view/training-schedule-view.component';
 import { TokenInterceptor } from './auth.interceptor';
-import { ViewUsersComponent } from './pages/users/view-users/view-users.component';
-import { ClubeFormEntrarComponent } from './pages/club/clube-form-entrar/clube-form-entrar.component';
+import { ClubeFormEntrarComponent } from './pages/clube/clube-form-entrar/clube-form-entrar.component';
+import { ViewUsersComponent } from './pages/usuarios/view-users/view-users.component';
+import { ClubeFormComponent } from './pages/clube/clube-form/clube-form.component';
+import { EventoFormComponent } from './pages/evento/evento-form/evento-form.component';
+import { SessaoTreinoFormComponent } from './pages/sessao-treino/sessao-treino-form/sessao-treino-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClubFormComponent,
-    EventFormComponent,
+    ClubeFormComponent,
+    EventoFormComponent,
     ViewUsersComponent,
-    TrainingScheduleFormComponent,
-    TrainingScheduleViewComponent,
+    SessaoTreinoFormComponent,
     ClubeFormEntrarComponent
   ],
   imports: [

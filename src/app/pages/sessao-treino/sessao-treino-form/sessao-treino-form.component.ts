@@ -5,11 +5,11 @@ import { EventService } from 'src/app/services/event.service';
 import { TrainingSessionService } from 'src/app/services/training-session.service';
 
 @Component({
-  selector: 'app-event-form',
-  templateUrl: './training-schedule-form.component.html',
-  styleUrls: ['./training-schedule-form.component.scss'],
+  selector: 'app-sessao-treino-form',
+  templateUrl: './sessao-treino-form.component.html',
+  styleUrls: ['./sessao-treino-form.component.scss'],
 })
-export class TrainingScheduleFormComponent  implements OnInit {
+export class SessaoTreinoFormComponent  implements OnInit {
 
   treino: any;
   feedbackTreino: string = "";

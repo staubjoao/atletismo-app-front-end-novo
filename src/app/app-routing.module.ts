@@ -28,8 +28,8 @@ const routes: Routes = [
   {
     path: 'club-list',
     loadChildren: () =>
-      import('./pages/club/club-list/club-list.module').then(
-        (m) => m.ClubListPageModule
+      import('./pages/clube/clube-list/clube-list.module').then(
+        (m) => m.ClubeListPageModule
       ),
     canActivate: [AuthGuard],
     data: { roles: ['TREINADOR'] },
@@ -37,7 +37,7 @@ const routes: Routes = [
   {
     path: 'event-list',
     loadChildren: () =>
-      import('./pages/event/event-list/event-list.module').then(
+      import('./pages/evento/evento-list/evento-list.module').then(
         (m) => m.EventListPageModule
       ),
     canActivate: [AuthGuard],
@@ -47,15 +47,15 @@ const routes: Routes = [
     path: 'training-schedule',
     loadChildren: () =>
       import(
-        './pages/training-schedule/training-schedule-list/training-schedule-list.module'
-      ).then((m) => m.TrainingScheduleListPageModule),
+        './pages/sessao-treino/sessao-treino-list/sessao-treino-list.module'
+      ).then((m) => m.SessaoTreinoListPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['TREINADOR', 'ATHLETE'] },
   },
   {
     path: 'list-users',
     loadChildren: () =>
-      import('./pages/users/list-users/list-users.module').then(
+      import('./pages/usuarios/list-users/list-users.module').then(
         (m) => m.ListUsersPageModule
       ),
     canActivate: [AuthGuard],

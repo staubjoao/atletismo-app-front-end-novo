@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { EventFormComponent } from './event-form.component';
+import { SessaoTreinoFormComponent } from './sessao-treino-form.component';
 
-describe('EventFormComponent', () => {
-  let component: EventFormComponent;
-  let fixture: ComponentFixture<EventFormComponent>;
+describe('SessaoTreinoFormComponent', () => {
+  let component: SessaoTreinoFormComponent;
+  let fixture: ComponentFixture<SessaoTreinoFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventFormComponent ],
+      declarations: [ SessaoTreinoFormComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EventFormComponent);
+    fixture = TestBed.createComponent(SessaoTreinoFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

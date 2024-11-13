@@ -14,13 +14,13 @@ export enum TipoEvento {
 }
 
 @Component({
-  selector: 'app-event-form',
-  templateUrl: './event-form.component.html',
-  styleUrls: ['./event-form.component.scss'],
+  selector: 'app-evento-form',
+  templateUrl: './evento-form.component.html',
+  styleUrls: ['./evento-form.component.scss'],
 })
-export class EventFormComponent  implements OnInit {
+export class EventoFormComponent  implements OnInit {
 
-  newEvent: Evento = {
+  novoEvento: Evento = {
     nome: '',
     tipo: '',
     clube: {
@@ -63,30 +63,30 @@ export class EventFormComponent  implements OnInit {
 
   setEventToEdit(event: Evento) {
     this.eventToEdit = event;
-    this.newEvent = { ...event };
-    console.log(this.newEvent);
+    this.novoEvento = { ...event };
+    console.log(this.novoEvento);
   }
 
   registerEvent() {
-    if (this.newEvent.id) {
-      this.eventService.updateEvent(this.newEvent).subscribe(
+    if (this.novoEvento.id) {
+      this.eventService.updateEvent(this.novoEvento).subscribe(
         (response) => {
-          console.log('Modalidade registrada!', response);
+          console.log('Evento registrada!', response);
           this.dismiss();
         },
         (error) => {
-          console.error('Erro ao registrar a modalidade:', error);
+          console.error('Erro ao registrar o evento:', error);
         }
       );
     } else {
-      console.log("this.newEvent => ", this.newEvent);
-      this.eventService.createEvent(this.newEvent).subscribe(
+      console.log("this.novoEvento => ", this.novoEvento);
+      this.eventService.createEvent(this.novoEvento).subscribe(
         (response) => {
-          console.log('Modalidade registrada!', response);
+          console.log('Evento registrado!', response);
           this.dismiss();
         },
         (error) => {
-          console.error('Erro ao registrar a modalidade:', error);
+          console.error('Erro ao registrar o evento:', error);
         }
       );
     }

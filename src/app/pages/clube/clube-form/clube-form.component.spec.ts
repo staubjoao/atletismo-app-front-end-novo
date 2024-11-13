@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TrainingScheduleViewComponent } from './training-schedule-view.component';
+import { ClubeFormComponent } from './clube-form.component';
 
-describe('TrainingScheduleViewComponent', () => {
-  let component: TrainingScheduleViewComponent;
-  let fixture: ComponentFixture<TrainingScheduleViewComponent>;
+describe('ClubeFormComponent', () => {
+  let component: ClubeFormComponent;
+  let fixture: ComponentFixture<ClubeFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrainingScheduleViewComponent ],
+      declarations: [ ClubeFormComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TrainingScheduleViewComponent);
+    fixture = TestBed.createComponent(ClubeFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

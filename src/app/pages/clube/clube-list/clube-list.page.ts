@@ -1,17 +1,17 @@
 import { ClubService } from './../../../services/club.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import { ClubFormComponent } from '../club-form/club-form.component';
 import { Club } from 'src/app/models/club-modal';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClubeFormEntrarComponent } from '../clube-form-entrar/clube-form-entrar.component';
+import { ClubeFormComponent } from '../clube-form/clube-form.component';
 
 @Component({
-  selector: 'app-club-list',
-  templateUrl: './club-list.page.html',
-  styleUrls: ['./club-list.page.scss'],
+  selector: 'app-clube-list',
+  templateUrl: './clube-list.page.html',
+  styleUrls: ['./clube-list.page.scss'],
 })
-export class ClubListPage implements OnInit {
+export class ClubeListPage implements OnInit {
   clubs: any[] = [];
   userId: string = '';
   isTREINADOR: boolean = false
@@ -48,7 +48,7 @@ export class ClubListPage implements OnInit {
 
   async openClubRegistrationModal() {
     const modal = await this.modalController.create({
-      component: ClubFormComponent
+      component: ClubeFormComponent
     });
 
     modal.onDidDismiss().then(() => {
@@ -72,7 +72,7 @@ export class ClubListPage implements OnInit {
 
   async editClub(club: Club) {
     const modal = await this.modalController.create({
-      component: ClubFormComponent,
+      component: ClubeFormComponent,
       componentProps: {
         club: club
       }

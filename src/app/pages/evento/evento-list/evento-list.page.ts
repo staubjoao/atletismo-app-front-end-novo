@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController, ToastController } from '@ionic/angular';
 import { EventService } from '../../../services/event.service';
 import { AuthService } from '../../../services/auth.service';
-import { EventFormComponent } from '../event-form/event-form.component';
 import { Evento } from 'src/app/models/event-modal';
+import { EventoFormComponent } from '../evento-form/evento-form.component';
 
 @Component({
-  selector: 'app-event-list',
-  templateUrl: './event-list.page.html',
-  styleUrls: ['./event-list.page.scss'],
+  selector: 'app-evento-list',
+  templateUrl: './evento-list.page.html',
+  styleUrls: ['./evento-list.page.scss'],
 })
-export class EventListPage implements OnInit {
+export class EventoListPage implements OnInit {
   events: any[] = [];
   isTREINADOR: boolean = false;
   userId: number = localStorage.getItem('userId')
@@ -66,7 +66,7 @@ export class EventListPage implements OnInit {
 
   async editEvent(event: Evento) {
     const modal = await this.modalController.create({
-      component: EventFormComponent,
+      component: EventoFormComponent,
       componentProps: {
         event: event
       }
@@ -108,7 +108,7 @@ export class EventListPage implements OnInit {
     }
 
     const modal = await this.modalController.create({
-      component: EventFormComponent,
+      component: EventoFormComponent,
     });
 
     modal.onDidDismiss().then((result) => {

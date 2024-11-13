@@ -6,11 +6,11 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-club-form',
-  templateUrl: './club-form.component.html',
-  styleUrls: ['./club-form.component.scss'],
+  selector: 'app-clube-form',
+  templateUrl: './clube-form.component.html',
+  styleUrls: ['./clube-form.component.scss'],
 })
-export class ClubFormComponent implements OnInit {
+export class ClubeFormComponent implements OnInit {
   newClub: Club = { nome: '' };
   userInfo: any = { clubId: null };
 
@@ -61,23 +61,23 @@ export class ClubFormComponent implements OnInit {
     if (this.clubToEdit) {
       this.clubService.updateClub(this.clubToEdit.id!, this.newClub).subscribe(
         (response) => {
-          console.log('Club updated!', response);
+          console.log('Clube atualizado!', response);
           this.dismiss();
           this.router.navigate(['/club-list']);
         },
         (error) => {
-          console.error('Error updating club:', error);
+          console.error('Erro:', error);
         }
       );
     } else {
       this.clubService.createClub(this.newClub).subscribe(
         (response) => {
-          console.log('Club registered!', response);
+          console.log('Clube salvo!', response);
           this.dismiss();
           this.router.navigate(['/club-list']);
         },
         (error) => {
-          console.error('Error registering club:', error);
+          console.error('Erro:', error);
         }
       );
     }

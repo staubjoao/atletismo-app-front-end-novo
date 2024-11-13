@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { EventListPageRoutingModule } from './event-list-routing.module';
-import { EventListPage } from './event-list.page';
+import { EventoListPage } from './evento-list.page';
+import { EventoListPageRoutingModule } from './evento-list-routing.module';
 
 
 
@@ -12,8 +12,8 @@ import { EventListPage } from './event-list.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EventListPageRoutingModule
+    EventoListPageRoutingModule
   ],
-  declarations: [EventListPage]
+  declarations: [EventoListPage]
 })
 export class EventListPageModule {}

@@ -15,6 +15,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { TrainingScheduleViewComponent } from './pages/training-schedule/training-schedule-view/training-schedule-view.component';
 import { TokenInterceptor } from './auth.interceptor';
 import { ViewUsersComponent } from './pages/users/view-users/view-users.component';
+import { ClubeFormEntrarComponent } from './pages/club/clube-form-entrar/clube-form-entrar.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ViewUsersComponent } from './pages/users/view-users/view-users.componen
     EventFormComponent,
     ViewUsersComponent,
     TrainingScheduleFormComponent,
-    TrainingScheduleViewComponent
+    TrainingScheduleViewComponent,
+    ClubeFormEntrarComponent
   ],
   imports: [
     BrowserModule,

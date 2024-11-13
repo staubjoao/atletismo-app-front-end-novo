@@ -10,7 +10,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent implements OnInit {
   public appPages: { title: string; url: string; icon: string; roles: string[] }[] = [
     { title: 'Home', url: '/home', icon: 'home', roles: ['TREINADOR', 'ATLETA'] },
-    { title: 'Grupo', url: '/club-list', icon: 'people', roles: ['TREINADOR'] },
+    { title: 'Grupo', url: '/club-list', icon: 'people', roles: ['TREINADOR', 'ATLETA'] },
     { title: 'Evento', url: '/event-list', icon: 'flame', roles: ['TREINADOR', 'ATLETA'] },
     { title: 'Cronograma de treino', url: '/training-schedule', icon: 'calendar', roles: ['TREINADOR', 'ATLETA'] },
     { title: 'Atletas', url: '/list-users', icon: 'person', roles: ['TREINADOR'] },

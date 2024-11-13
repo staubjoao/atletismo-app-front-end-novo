@@ -19,7 +19,7 @@
       <ion-label>
         {{ club.nome }} - {{ club.codigo }}
       </ion-label>
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" *ngIf="isTREINADOR">
         <ion-button (click)="editClub(club)">
           <ion-icon name="create"></ion-icon>
         </ion-button>
@@ -30,10 +30,18 @@
     </ion-item>
   </ion-list>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openClubRegistrationModal()">
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="isTREINADOR">
+    <ion-button (click)="openClubRegistrationModal()">
       <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
+      <ion-label>Novo</ion-label>
+    </ion-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-button (click)="entrarClubeModal()">
+      <ion-icon name="add"></ion-icon>
+      <ion-label>Entrar em um clube</ion-label>
+    </ion-button>
   </ion-fab>
 
 </ion-content>

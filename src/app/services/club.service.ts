@@ -42,6 +42,10 @@ export class ClubService {
     return this.http.put<Club>(`${this.apiUrl}/${id}`, body);
   }
 
+  entrarClube(codigoClube: string): Observable<any> {
+    return this.http.post<Club>(`${this.apiUrl}/entrar/${codigoClube}`, null);
+  }
+
   deleteClub(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }

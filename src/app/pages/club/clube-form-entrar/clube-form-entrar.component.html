@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Entrar em um clube</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-item>
+      <ion-label position="floating">Código do clube</ion-label>
+      <ion-input [(ngModel)]="codigo" name="codigo" type="text"></ion-input>
+    </ion-item>
+  <ion-button expand="full" (click)="entrarClube()" [disabled]="codigo.trim().length === 0">Entrar no clube</ion-button>
+</ion-content>

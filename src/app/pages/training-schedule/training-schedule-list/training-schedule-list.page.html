@@ -55,7 +55,7 @@
         <ion-button slot="end" (click)="abrirRegistroSessaoTreinamento(treino)" *ngIf="!isTREINADOR && !treino.concluido">
           Registrar treino
         </ion-button>
-        <ion-label slot="end" *ngIf="treino.concluido">Concluído!</ion-label>
+        <ion-label slot="end" *ngIf="treino.concluido && !isTREINAD">Concluído!</ion-label>
       </ion-item>
     </ion-list>
   </ion-content>

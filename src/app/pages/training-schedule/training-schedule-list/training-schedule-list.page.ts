@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { TrainingSchedule } from 'src/app/models/training-schedule-modal';
 import { TrainingScheduleService } from 'src/app/services/training-schedule.service';
 import { TrainingScheduleViewComponent } from '../training-schedule-view/training-schedule-view.component';
 import { TrainingScheduleFormComponent } from '../training-schedule-form/training-schedule-form.component';
@@ -28,7 +27,6 @@ export class TrainingScheduleListPage implements OnInit {
   clubId: number = 0;
   events: any[] = [];
   clubs: Club[] = [];
-
 
   constructor(
     private trainingScheduleService: TrainingScheduleService,
@@ -58,7 +56,7 @@ export class TrainingScheduleListPage implements OnInit {
   }
 
   consultaEventosClubeAtleta() {
-    this.eventService.getAllEventosAtleta().subscribe((response) => {
+    this.eventService.getAllEventosAtleta().subscribe((response: any) => {
       this.events = response;
     })
   }
@@ -95,6 +93,7 @@ export class TrainingScheduleListPage implements OnInit {
   }
 
   obterDiaSemana(diaSemana: number): string {
+    console.log(diaSemana);
     const diasSemanaMap: { [key: number]: string } = {
       1: 'segunda-feira',
       2: 'terça-feira',
@@ -106,6 +105,27 @@ export class TrainingScheduleListPage implements OnInit {
     };
 
     return diasSemanaMap[diaSemana] || 'Dia inválido';
+  }
+
+  async abrirRegistroSessaoTreinamento(treino: any) {
+    if (this.isTREINADOR) {
+      return;
+    }
+
+    console.log('Treino recebido:', treino);
+
+    const modal = await this.modalController.create({
+      component: TrainingScheduleFormComponent,
+      componentProps: {
+        treino: treino
+      }
+    });
+
+    modal.onDidDismiss().then((result) => {
+      this.findByEvento();
+    });
+
+    return await modal.present();
   }
 
 }

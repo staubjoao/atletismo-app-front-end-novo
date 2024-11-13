@@ -8,9 +8,13 @@ import { TrainingSession } from '../models/training-session.model'; // Adjust th
   providedIn: 'root',
 })
 export class TrainingSessionService {
-  private apiUrl = `${environment.apiUrl}/training-session`;
+  private apiUrl = `${environment.apiUrl}/api/sessao-treino`;
 
   constructor(private http: HttpClient) {}
+
+  salvar(body: any): Observable<string> {
+    return this.http.post<string>(this.apiUrl, body);
+  }
 
   findAll(): Observable<TrainingSession[]> {
     return this.http.get<TrainingSession[]>(this.apiUrl);

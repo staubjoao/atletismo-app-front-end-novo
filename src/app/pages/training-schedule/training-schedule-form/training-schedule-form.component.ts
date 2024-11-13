@@ -1,11 +1,8 @@
-import { ClubService } from './../../../services/club.service';
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Evento } from 'src/app/models/event-modal';
-import { Club } from 'src/app/models/club-modal';
+import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { TrainingScheduleService } from 'src/app/services/training-schedule.service';
-import { TrainingSchedule } from 'src/app/models/training-schedule-modal';
 import { EventService } from 'src/app/services/event.service';
+import { TrainingSessionService } from 'src/app/services/training-session.service';
 
 @Component({
   selector: 'app-event-form',
@@ -14,46 +11,67 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class TrainingScheduleFormComponent  implements OnInit {
 
-  newTrainingSchedule: TrainingSchedule = {
-    dayOfWeek: 0,
-    startTime: '',
-    description: '',
-    eventId: 0
-  };
+  treino: any;
+  feedbackTreino: string = "";
 
-  eventList: Evento[] = [];
-
-  constructor(private modalController: ModalController,
-    private trainingScheduleService: TrainingScheduleService,
-    private eventService: EventService
-  ) { }
+  constructor(
+    private modalController: ModalController,
+    private navParams: NavParams,
+    private sessaoTreinoService: TrainingSessionService,
+    private toastController: ToastController
+  ) {
+    this.treino = this.navParams.get('treino');
+    console.log('Treino recebido no modal:', this.treino);
+  }
 
   ngOnInit() {
-    this.eventService.getAllEvents().subscribe(
-      (response: any) => {
-        this.eventList = response;
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
+    if (this.treino && this.treino.exercicios) {
+      this.treino.exercicios.sort((a: any, b: any) => a.indice - b.indice);
+    }
   }
 
   dismiss() {
     this.modalController.dismiss();
   }
 
-  registerEvent() {
-    console.log(this.newTrainingSchedule);
-    this.trainingScheduleService.createTrainingSchedule(this.newTrainingSchedule).subscribe(
-      (response) => {
-        console.log('Registro de treino registrado!', response);
+  async salvarSessaoTreino() {
+    const now = new Date();
+    const localDateTime = now.toISOString().split('.')[0];
+
+    const treinoData = {
+      idHorarioTreinamento: this.treino.id,
+      data: localDateTime,
+      feedback: this.feedbackTreino,
+      exercicios: this.treino.exercicios.map((exercicio: any) => ({
+        id: exercicio.id,
+        tempo: exercicio.tempo ? parseFloat(exercicio.tempo) : null,
+        concluido: exercicio.concluido || false
+      }))
+    };
+
+    console.log(treinoData);
+
+    this.sessaoTreinoService.salvar(treinoData).subscribe(
+      async response => {
+        console.log(response);
+        await this.presentToast('Sessão salva com sucesso!', 'success');
         this.dismiss();
       },
-      (error) => {
-        console.error('Erro ao registrar o treino:', error);
+      async error => {
+        console.log("teste ", error);
+        await this.presentToast('Erro ao salvar a sessão.', 'danger');
       }
     );
+  }
+
+  async presentToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      color: color,
+      position: 'bottom'
+    });
+    await toast.present();
   }
 
 }

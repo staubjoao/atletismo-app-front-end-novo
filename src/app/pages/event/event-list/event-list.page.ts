@@ -53,11 +53,11 @@ export class EventListPage implements OnInit {
 
   loadEventosAtleta() {
     this.eventService.getAllEventosAtleta().subscribe(
-      (events) => {
+      (events: any) => {
         this.events = events;
         console.log(this.events);
       },
-      (error) => {
+      (error: any) => {
         console.error('Erro ao carregar eventos', error);
       }
     );

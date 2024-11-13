@@ -20,7 +20,7 @@ export class EventService {
     return this.http.get<any>(`${this.apiUrl}/clube/${clubeId}`);
   }
 
-  getAllEventosAtleta(): Observable<any> {
+  getAllEventosAtleta(): any {
     return this.http.get<any>(`${this.apiUrl}/atleta`);
   }
 

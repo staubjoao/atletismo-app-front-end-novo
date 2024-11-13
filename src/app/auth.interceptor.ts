@@ -7,12 +7,12 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('token');
-    console.log('token recuperado interceptor: ' + token);
+    // console.log('token recuperado interceptor: ' + token);
     const url = request.url;
-    console.log('url recuperado interceptor: ' + url);
+    // console.log('url recuperado interceptor: ' + url);
 
     if (token) {
-      console.log('url: ' + url);
+      // console.log('url: ' + url);
       const jwt = token;
       request = request.clone({
         setHeaders: {

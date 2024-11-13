@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Club } from 'src/app/models/club-modal';
 import { ClubService } from 'src/app/services/club.service';
 import { AuthService } from '../../../services/auth.service';
@@ -17,6 +17,7 @@ export class ClubeFormEntrarComponent implements OnInit {
     private modalController: ModalController,
     private clubService: ClubService,
     private authService: AuthService,
+    private toastController: ToastController,
     private router: Router
   ) { }
 
@@ -27,18 +28,29 @@ export class ClubeFormEntrarComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  entrarClube() {
+  async entrarClube() {
     this.clubService.entrarClube(this.codigo).subscribe(
-      (response) => {
+      async (response) => {
         console.log('Entrou!', response);
+        await this.showToast('Entrou no clube com sucesso!', 'success');
         this.dismiss();
         this.router.navigate(['/club-list']);
       },
-      (error) => {
+      async (error) => {
         console.error('Erro:', error);
+        await this.showToast('Erro ao entrar no clube. Tente novamente!', 'danger');
       }
     );
+  }
 
+  async showToast(message: string, color: 'success' | 'danger') {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      color: color,
+      position: 'top',
+    });
+    await toast.present();
   }
 
 }

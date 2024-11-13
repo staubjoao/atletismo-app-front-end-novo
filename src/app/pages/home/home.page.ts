@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Import Router
-import { User } from 'src/app/models/user-model';
 import { AuthService } from 'src/app/services/auth.service';
-import { ClubService } from 'src/app/services/club.service';
+import { AlertController, ToastController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +11,20 @@ import { ClubService } from 'src/app/services/club.service';
 export class HomePage implements OnInit {
   email: any = '';
   funcao: any = '';
+  senhaAtual: string = '';
+  senhaNova: string = '';
+  confirmarSenha: string = '';
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
+    private toastController: ToastController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
     this.loadUserInfo();
+    this.resetPasswordFields();
   }
 
   loadUserInfo() {
@@ -26,42 +32,94 @@ export class HomePage implements OnInit {
     this.funcao = localStorage.getItem("role");
   }
 
-  updateClub() {
-    // if (this.clubCode) {
-    //   this.clubService.getClubByCode(this.clubCode).subscribe(
-    //     (clubInfo) => {
-    //       if (clubInfo) {
-    //         const updatedUserData = {
-    //           name: this.userInfo.nome,
-    //           email: this.userInfo.email,
-    //           password: this.userInfo.senha,
-    //           role: this.userInfo.role,
-    //         };
+  async changePassword() {
+    if (this.senhaNova !== this.confirmarSenha) {
+      await this.showToast('A nova senha e a confirmação não coincidem.');
+      return;
+    }
 
-    //         this.authService.updateUser(updatedUserData).subscribe(
-    //           (updatedUser) => {
-    //             this.userInfo.club = clubInfo.name;
-    //             this.userInfo.clubId = clubInfo.id;
-    //             localStorage.setItem('clubId', clubInfo.id);
-    //             this.clubCode = '';
-    //             console.log('User updated successfully', updatedUser);
-    //             this.router.navigate(['/home']);
-    //           },
-    //           (error) => {
-    //             localStorage.setItem('clubId', '0');
-    //             console.error('Error updating user', error);
-    //           }
-    //         );
-    //       } else {
-    //         console.error('Club not found');
-    //       }
-    //     },
-    //     (error) => {
-    //       console.error('Error finding club', error);
-    //     }
-    //   );
-    // } else {
-    //   console.error('Club code is required.');
-    // }
+    this.userService.alterarSenha(this.senhaAtual, this.senhaNova).subscribe(
+      async (response) => {
+        await this.showToast('Senha alterada com sucesso!');
+        this.resetPasswordFields();
+      },
+      async (error) => {
+        await this.showToast('Erro ao alterar a senha. ' + error.error);
+        console.error(error);
+      }
+    );
+  }
+
+  resetPasswordFields() {
+    this.senhaAtual = '';
+    this.senhaNova = '';
+    this.confirmarSenha = '';
+  }
+
+  async openEditDialog() {
+    try {
+      const userData = await this.userService.consultarNomeEmail().toPromise();
+
+      const alert = await this.alertController.create({
+        header: 'Editar informações',
+        inputs: [
+          {
+            name: 'name',
+            type: 'text',
+            placeholder: 'Nome',
+            value: userData?.nome || '',
+          },
+          {
+            name: 'email',
+            type: 'email',
+            placeholder: 'Email',
+            value: userData?.email || '',
+          },
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+          },
+          {
+            text: 'Salvar',
+            handler: (data) => {
+              this.updateUserInfo(data.name, data.email);
+            },
+          },
+        ],
+      });
+
+      await alert.present();
+    } catch (error) {
+      await this.showToast('Erro ao carregar informações do usuário.');
+    }
+  }
+
+
+  updateUserInfo(nome: string, email: string) {
+    const body = {
+      nome: nome,
+      email: email
+    }
+    this.userService.atualizarNomeEmail(body).subscribe(
+      async () => {
+        this.email = email;
+        await this.showToast('Informações atualizadas com sucesso!');
+        this.authService.logout();
+      },
+      async () => {
+        await this.showToast('Erro ao atualizar informações.');
+      }
+    );
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'top',
+    });
+    await toast.present();
   }
 }

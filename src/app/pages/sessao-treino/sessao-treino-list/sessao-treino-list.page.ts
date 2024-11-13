@@ -92,7 +92,6 @@ export class SessaoTreinoListPage implements OnInit {
   }
 
   obterDiaSemana(diaSemana: number): string {
-    console.log(diaSemana);
     const diasSemanaMap: { [key: number]: string } = {
       1: 'segunda-feira',
       2: 'terça-feira',

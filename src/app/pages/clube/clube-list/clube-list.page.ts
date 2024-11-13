@@ -46,7 +46,7 @@ export class ClubeListPage implements OnInit {
     );
   }
 
-  async openClubRegistrationModal() {
+  async abrirModalManterClube() {
     const modal = await this.modalController.create({
       component: ClubeFormComponent
     });

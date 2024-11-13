@@ -16,28 +16,47 @@
       <ion-card-title class="ion-text-center">{{ email }}</ion-card-title>
       <ion-card-subtitle class="ion-text-center">{{ funcao }}</ion-card-subtitle>
     </ion-card-header>
+
     <ion-card-content>
-      <!-- <ion-list lines="none">
+      <ion-button expand="block" (click)="openEditDialog()">
+        Alterar nome/email
+      </ion-button>
+
+      <ion-list lines="none" class="password-list">
         <ion-item>
-          <ion-icon name="business-outline" slot="start"></ion-icon>
-          <ion-label>
-            <h3>Clube</h3>
-            <p>{{ userInfo.club }}</p>
-          </ion-label>
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input
+            type="password"
+            placeholder="Senha atual"
+            [(ngModel)]="senhaAtual"
+            required
+          ></ion-input>
         </ion-item>
+
         <ion-item>
-          <ion-icon name="mail-outline" slot="start"></ion-icon>
-          <ion-label>
-            <h3>Email</h3>
-            <p>{{ userInfo.email }}</p>
-          </ion-label>
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input
+            type="password"
+            placeholder="Nova senha"
+            [(ngModel)]="senhaNova"
+            required
+          ></ion-input>
         </ion-item>
-        <ion-item *ngIf="userInfo.club === 'Sem Clube'">
-          <ion-input placeholder="Insira o código do clube" [(ngModel)]="clubCode" (keyup.enter)="updateClub()">
-          </ion-input>
-          <ion-button (click)="updateClub()">Entrar</ion-button>
+
+        <ion-item>
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input
+            type="password"
+            placeholder="Confirmar nova senha"
+            [(ngModel)]="confirmarSenha"
+            required
+          ></ion-input>
         </ion-item>
-      </ion-list> -->
+
+        <ion-button expand="block" (click)="changePassword()">
+          Alterar senha
+        </ion-button>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 </ion-content>

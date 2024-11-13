@@ -28,13 +28,15 @@ export class AppComponent implements OnInit {
         this.checkRoute(event.urlAfterRedirects);
       }
     });
+
+    this.authService.currentUser$.subscribe((user) => {
+      this.emailLogado = user?.email || '';
+      this.userRole = user?.role || '';
+      this.filteredPages = this.appPages.filter((page) => page.roles.includes(this.userRole));
+    });
   }
 
-  ngOnInit() {
-    this.emailLogado = localStorage.getItem('email') || '';
-    this.userRole = localStorage.getItem('role') || '';
-    this.filteredPages = this.appPages.filter((page) => page.roles.includes(this.userRole));
-  }
+  ngOnInit() { }
 
   checkRoute(url: string) {
     const noMenuRoutes = ['/login', '/sign-up'];
